@@ -4,7 +4,7 @@ import axios from 'axios'
 const Movies = (props) =>{
 
   const [movies, setMovies] = useState([])
-  
+
   const handleDeleteMovie = (movieData) =>{
     axios.delete(`http://localhost:3000/movies/${movieData._id}`).then(()=>{
       axios.get('http://localhost:3000/movies').then((response)=>{
@@ -12,6 +12,8 @@ const Movies = (props) =>{
       })
     })
   }
+
+
 
   return (
     <div className="movie-div">
@@ -23,6 +25,7 @@ const Movies = (props) =>{
       <h4>Year: {props.movie.year}</h4>
       <button onClick={ (event) => {handleDeleteMovie(props.movie)}}>Delete</button>
     </div>
+
   )
 }
 
