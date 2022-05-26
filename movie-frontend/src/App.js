@@ -90,16 +90,11 @@ function App() {
     showNew ? setShowNew(false) : setShowNew(true)
   }
   
-  useEffect(()=>{
-    axios.get('http://localhost:3000/movies').then((response)=>{
-      setMovies(response.data)
-    })
-  })
-  
-  
-  return (
-    <>
-      <h1>Movie World</h1>
+
+  const MovieDisplay = () => {
+    return (
+      <section>
+              <h1>Movie World</h1>
       <button id='edit-btn' onClick={toggleNewMovie}>Add Movie</button>
       {showNew ? <div id='new-form-div'>
         <form onSubmit={handleNewMovieSubmit}>
@@ -112,7 +107,6 @@ function App() {
           <input type='submit' value="Save New Movie"/>
         </form>
       </div> : null}
-      <button id='edit-btn' onClick={toggleEditMovie}>Edit Movies</button>
       <div className='container'>
         {movies.map((movie)=>{
           return (
@@ -132,6 +126,21 @@ function App() {
           )
         })}
       </div>
+      </section>
+    )
+  }
+
+
+  useEffect(()=>{
+    axios.get('http://localhost:3000/movies').then((response)=>{
+      setMovies(response.data)
+    })
+  }, [])
+  
+
+  return (
+    <>
+    <MovieDisplay/>
       <footer>
         <h5>©Holmes, Gillis, and Co.</h5>
       </footer>
