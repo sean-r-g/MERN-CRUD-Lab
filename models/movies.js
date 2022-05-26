@@ -7,6 +7,7 @@ const movieSchema = new mongoose.Schema ({
   genre: String,
   year: Number,
   image: String,
+  showEdit: Boolean
 })
 
 const Movies = mongoose.model('Movie', movieSchema)

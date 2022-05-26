@@ -45,6 +45,7 @@ function App() {
       genre: newGenre,
       year: newYear,
       image: newImage,
+      showEdit: false
     }).then(()=>{
       axios.get('http://localhost:3000/movies').then((response)=>{
         setMovies(response.data)
@@ -66,10 +67,25 @@ function App() {
       })
     })
   }
-
-  const toggleEditMovie = () =>{
-    showEdit ? setShowEdit(false) : setShowEdit(true)
+  const handleDeleteMovie = (movieData) =>{
+    axios.delete(`http://localhost:3000/movies/${movieData._id}`).then(()=>{
+      axios.get('http://localhost:3000/movies').then((response)=>{
+        setMovies(response.data)
+      })
+    })
   }
+
+  const toggleEditMovie = (movieData) =>{
+    showEdit ? setShowEdit(false) : setShowEdit(true)
+    axios.put(`http://localhost:3000/movies/${movieData._id}`, {
+      showEdit: showEdit
+    }).then(()=>{
+      axios.get('http://localhost:3000/movies').then((response)=>{
+        setMovies(response.data)
+      })
+    })
+  }
+
   const toggleNewMovie = () =>{
     showNew ? setShowNew(false) : setShowNew(true)
   }
@@ -102,13 +118,15 @@ function App() {
           return (
             <div className='movie-container'>
             <Movies movie={movie}/>
-            {showEdit ? <form onSubmit={(event) => {handleMovieUpdate(event, movie)}}>
+            <button id='edit-btn' onClick={ (event) => {toggleEditMovie(movie)}}>Edit Movies</button>
+            {movie.showEdit ? <form onSubmit={(event) => {handleMovieUpdate(event, movie)}}>
               Title:<br/> <input type='text' name='title' placeholder={movie.title} onChange={handleNewTitle}/><br/>
               Run Time: <br/><input type='number' name='runTime' placeholder={movie.runTime} onChange={handleNewRunTime}/><br/>
               Director: <br/><input type='text' name='director' placeholder={movie.director} onChange={handleNewDirector}/><br/>
               Genre: <br/><input type='text' name='genre' placeholder={movie.genre} onChange={handleNewGenre}/><br/>
               Year: <br/><input type='number' name='year' placeholder={movie.year} onChange={handleNewYear}/><br/>
-              <input type='submit' value='Submit'/>
+              <input type='submit' value='Submit'/><br/>
+              <button id='delete' onClick={ (event) => {handleDeleteMovie(movie)}}>Delete</button>
             </form> : null}
             </div>
           )

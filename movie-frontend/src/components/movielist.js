@@ -5,13 +5,6 @@ const Movies = (props) =>{
 
   const [movies, setMovies] = useState([])
 
-  const handleDeleteMovie = (movieData) =>{
-    axios.delete(`http://localhost:3000/movies/${movieData._id}`).then(()=>{
-      axios.get('http://localhost:3000/movies').then((response)=>{
-        setMovies(response.data)
-      })
-    })
-  }
 
 
 
@@ -24,7 +17,6 @@ const Movies = (props) =>{
         <h4>Director: {props.movie.director}</h4>
         <h4>Genre: {props.movie.genre}</h4>
         <h4>Year: {props.movie.year}</h4>
-        <button onClick={ (event) => {handleDeleteMovie(props.movie)}}>Delete</button>
       </div>
     </div>
 

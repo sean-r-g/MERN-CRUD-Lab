@@ -62,3 +62,11 @@ footer {
   position: static;
   bottom: 0
 }
+#delete {
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+#delete:hover {
+  background-color: red;
+  text-transform: uppercase;
+}
