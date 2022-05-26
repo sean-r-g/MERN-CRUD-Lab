@@ -49,15 +49,7 @@ function App() {
       })
     })
   }
-  
-  const handleDeleteMovie = (movieData) =>{
-    axios.delete(`http://localhost:3000/${movieData._id}`).then(()=>{
-      axios.get('http://localhost:3000/movies').then((response)=>{
-        setMovies(response.data)
-      })
-    })
-  }
-  
+
   
   useEffect(()=>{
     axios.get('http://localhost:3000/movies').then((response)=>{
@@ -69,7 +61,7 @@ function App() {
   return (
     <>
       <h1>Movie World</h1>
-      <div>
+      <div id='new-form-div'>
         <form onSubmit={handleNewMovieSubmit}>
           Title: <input type='text' onChange={handleNewTitle}/><br/>
           Run Time: <input type='number' onChange={handleNewRunTime}/><br/>
