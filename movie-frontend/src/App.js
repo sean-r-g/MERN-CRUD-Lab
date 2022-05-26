@@ -90,13 +90,14 @@ function App() {
     showNew ? setShowNew(false) : setShowNew(true)
   }
   
+
   useEffect(()=>{
     axios.get('http://localhost:3000/movies').then((response)=>{
       setMovies(response.data)
     })
-  })
+  }, [])
   
-  
+
   return (
     <>
       <h1>Movie World</h1>
@@ -112,13 +113,12 @@ function App() {
           <input type='submit' value="Save New Movie"/>
         </form>
       </div> : null}
-      <button id='edit-btn' onClick={toggleEditMovie}>Edit Movies</button>
       <div className='container'>
         {movies.map((movie)=>{
           return (
             <div className='movie-container'>
             <Movies movie={movie}/>
-            <button id='edit-btn' onClick={ (event) => {toggleEditMovie(movie)}}>Edit Movies</button>
+            <button id='edit-btn' onClick={ (event) => {toggleEditMovie(movie)}}>Edit Movie</button>
             {movie.showEdit ? <form onSubmit={(event) => {handleMovieUpdate(event, movie)}}>
               Title:<br/> <input type='text' name='title' placeholder={movie.title} onChange={handleNewTitle}/><br/>
               Run Time: <br/><input type='number' name='runTime' placeholder={movie.runTime} onChange={handleNewRunTime}/><br/>

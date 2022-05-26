@@ -3,10 +3,6 @@ import axios from 'axios'
 
 const Movies = (props) =>{
 
-  const [movies, setMovies] = useState([])
-
-
-
 
   return (
     <div className="movie-div">
