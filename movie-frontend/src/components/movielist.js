@@ -18,12 +18,14 @@ const Movies = (props) =>{
   return (
     <div className="movie-div">
       <img src={props.movie.image}/>
-      <h4>{props.movie.title}</h4>
-      <h4>Run Time: {props.movie.runTime}</h4>
-      <h4>Director: {props.movie.director}</h4>
-      <h4>Genre: {props.movie.genre}</h4>
-      <h4>Year: {props.movie.year}</h4>
-      <button onClick={ (event) => {handleDeleteMovie(props.movie)}}>Delete</button>
+      <div>
+        <h4>{props.movie.title}</h4>
+        <h4>Run Time: {props.movie.runTime}</h4>
+        <h4>Director: {props.movie.director}</h4>
+        <h4>Genre: {props.movie.genre}</h4>
+        <h4>Year: {props.movie.year}</h4>
+        <button onClick={ (event) => {handleDeleteMovie(props.movie)}}>Delete</button>
+      </div>
     </div>
 
   )

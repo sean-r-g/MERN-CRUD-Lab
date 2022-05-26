@@ -14,6 +14,7 @@ function App() {
   const [newYear, setNewYear] = useState()
   const [newImage, setNewImage] = useState()
   const [showEdit, setShowEdit] = useState(false)
+  const [showNew, setShowNew] = useState(false)
 
   const handleNewTitle = (event) => {
     setNewTitle(event.target.value)
@@ -44,7 +45,6 @@ function App() {
       genre: newGenre,
       year: newYear,
       image: newImage,
-      showEdit: false
     }).then(()=>{
       axios.get('http://localhost:3000/movies').then((response)=>{
         setMovies(response.data)
@@ -70,6 +70,9 @@ function App() {
   const toggleEditMovie = () =>{
     showEdit ? setShowEdit(false) : setShowEdit(true)
   }
+  const toggleNewMovie = () =>{
+    showNew ? setShowNew(false) : setShowNew(true)
+  }
   
   useEffect(()=>{
     axios.get('http://localhost:3000/movies').then((response)=>{
@@ -81,7 +84,8 @@ function App() {
   return (
     <>
       <h1>Movie World</h1>
-      <div id='new-form-div'>
+      <button id='edit-btn' onClick={toggleNewMovie}>Add Movie</button>
+      {showNew ? <div id='new-form-div'>
         <form onSubmit={handleNewMovieSubmit}>
           Title: <input type='text' onChange={handleNewTitle}/><br/>
           Run Time: <input type='number' onChange={handleNewRunTime}/><br/>
@@ -89,27 +93,30 @@ function App() {
           Genre: <input type='text' onChange={handleNewGenre}/><br/>
           Year: <input type='number' onChange={handleNewYear}/><br/>
           Image: <input type='url' onChange={handleNewImage}/><br/>
-          <input type='submit' value="Add Movie"/>
+          <input type='submit' value="Save New Movie"/>
         </form>
-      </div>
-      <button onClick={toggleEditMovie}>Edit Movies</button>
+      </div> : null}
+      <button id='edit-btn' onClick={toggleEditMovie}>Edit Movies</button>
       <div className='container'>
         {movies.map((movie)=>{
           return (
-            <div className='movie-div'>
+            <div className='movie-container'>
             <Movies movie={movie}/>
             {showEdit ? <form onSubmit={(event) => {handleMovieUpdate(event, movie)}}>
-              Title: <input type='text' name='title' placeholder={movie.title} onChange={handleNewTitle}/><br/>
-              Run Time: <input type='number' name='runTime' placeholder={movie.runTime} onChange={handleNewRunTime}/><br/>
-              Director: <input type='text' name='director' placeholder={movie.director} onChange={handleNewDirector}/><br/>
-              Genre: <input type='text' name='genre' placeholder={movie.genre} onChange={handleNewGenre}/><br/>
-              Year: <input type='number' name='year' placeholder={movie.year} onChange={handleNewYear}/><br/>
+              Title:<br/> <input type='text' name='title' placeholder={movie.title} onChange={handleNewTitle}/><br/>
+              Run Time: <br/><input type='number' name='runTime' placeholder={movie.runTime} onChange={handleNewRunTime}/><br/>
+              Director: <br/><input type='text' name='director' placeholder={movie.director} onChange={handleNewDirector}/><br/>
+              Genre: <br/><input type='text' name='genre' placeholder={movie.genre} onChange={handleNewGenre}/><br/>
+              Year: <br/><input type='number' name='year' placeholder={movie.year} onChange={handleNewYear}/><br/>
               <input type='submit' value='Submit'/>
             </form> : null}
             </div>
           )
         })}
       </div>
+      <footer>
+        <h5>©Holmes, Gillis, and Co.</h5>
+      </footer>
     </>
   );
 }
