@@ -118,7 +118,7 @@ function App() {
           return (
             <div className='movie-container'>
             <Movies movie={movie}/>
-            <button id='edit-btn' onClick={ (event) => {toggleEditMovie(movie)}}>Edit Movies</button>
+            <button id='edit-btn' onClick={ (event) => {toggleEditMovie(movie)}}>Edit Movie</button>
             {movie.showEdit ? <form onSubmit={(event) => {handleMovieUpdate(event, movie)}}>
               Title:<br/> <input type='text' name='title' placeholder={movie.title} onChange={handleNewTitle}/><br/>
               Run Time: <br/><input type='number' name='runTime' placeholder={movie.runTime} onChange={handleNewRunTime}/><br/>
