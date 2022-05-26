@@ -91,10 +91,16 @@ function App() {
   }
   
 
-  const MovieDisplay = () => {
-    return (
-      <section>
-              <h1>Movie World</h1>
+  useEffect(()=>{
+    axios.get('http://localhost:3000/movies').then((response)=>{
+      setMovies(response.data)
+    })
+  }, [])
+  
+
+  return (
+    <>
+      <h1>Movie World</h1>
       <button id='edit-btn' onClick={toggleNewMovie}>Add Movie</button>
       {showNew ? <div id='new-form-div'>
         <form onSubmit={handleNewMovieSubmit}>
@@ -126,21 +132,6 @@ function App() {
           )
         })}
       </div>
-      </section>
-    )
-  }
-
-
-  useEffect(()=>{
-    axios.get('http://localhost:3000/movies').then((response)=>{
-      setMovies(response.data)
-    })
-  }, [])
-  
-
-  return (
-    <>
-    <MovieDisplay/>
       <footer>
         <h5>©Holmes, Gillis, and Co.</h5>
       </footer>
